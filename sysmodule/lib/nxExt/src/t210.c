@@ -48,7 +48,7 @@
 
 #define PTO_CLK_CNT_BUSY         BIT(31)
 #define PTO_CLK_CNT              0xFFFFFF
-#define CLK_PTO_CCLK_G           0x13
+#define CLK_PTO_CCLK_G_DIV2      0x13
 #define CLK_PTO_EMC              0x24
 
 #define CLOCK(x) (*(volatile u32 *)(g_clk_base + (x)))
@@ -205,7 +205,7 @@ static void _clock_update_freqs(void)
     }
 
     g_mem_freq = _clock_get_dev_freq(CLK_PTO_EMC, 1);
-    g_cpu_freq = _clock_get_dev_freq(CLK_PTO_CCLK_G, 2);
+    g_cpu_freq = _clock_get_dev_freq(CLK_PTO_CCLK_G_DIV2, 2);
 
     if (!g_gpu_base)
     {
