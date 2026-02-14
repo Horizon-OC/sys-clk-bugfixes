@@ -164,18 +164,25 @@ void Board::SetHz(SysClkModule module, std::uint32_t hz)
 
         rc = clkrstOpenSession(&session, Board::GetPcvModuleId(module), 3);
         ASSERT_RESULT_OK(rc, "clkrstOpenSession");
-
         rc = clkrstSetClockRate(&session, hz);
         ASSERT_RESULT_OK(rc, "clkrstSetClockRate");
-
+        if (module == SysClkModule_CPU) {
+            svcSleepThread(300'000);
+            rc = clkrstSetClockRate(&session, hz);
+            ASSERT_RESULT_OK(rc, "clkrstSetClockRate");
+        }
         clkrstCloseSession(&session);
     }
     else
     {
         rc = pcvSetClockRate(Board::GetPcvModule(module), hz);
         ASSERT_RESULT_OK(rc, "pcvSetClockRate");
-    }
-}
+        if (module == SysClkModule_CPU) {
+            svcSleepThread(300'000);
+            rc = pcvSetClockRate(Board::GetPcvModule(module), hz);
+            ASSERT_RESULT_OK(rc, "pcvSetClockRate");
+        }
+    }}
 
 std::uint32_t Board::GetHz(SysClkModule module)
 {
