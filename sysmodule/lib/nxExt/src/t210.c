@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2020-2023 CTCaer
  * Copyright (c) 2023 p-sam
+ * Copyright (c) 2023 Lineon
  * Copyright (c) 2026 Souldbminer
  *
  * This program is free software; you can redistribute it and/or modify it
